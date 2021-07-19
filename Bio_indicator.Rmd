@@ -1,0 +1,356 @@
+---
+title: "Response of ground beetle communities on urbanization in Southern Osaka, Japan"
+author: "Cheol Min Lee"
+date: "7/16/2021"
+output:
+  pdf_document:
+    latex_engine: xelatex
+  html_document:
+    df_print: paged
+---
+### 1.Abstract
+  Urbanization involves the profound alteration of original habitats and causes habitat loss and biodiversity decline. This study aims to clarify the response of ground beetle communities to the effect of urbanization in southern Osaka, Japan. In total, 2950 individuals from 53 species of ground beetle were collected in nine urban green areas. The community index was not significantly different between areas. Urban areas and roads in land use mainly have a negative influence on ground beetles. Paddies, fields, parks and green spaces, and open space were positively correlated with species richness of forest species and large-sized species, and open space was positively correlated with species richness and the density of open land species. These results suggest that changes in paddies, fields, parks and green spaces, forests, and open space associated with the expanding urban area and road greatly influenced species composition, and the community structure remained similar.
+
+
+### 2.Introduction 
+  Urbanization drives global environmental changes and is one of the major anthropogenic activities that impacts biodiversity and ecosystem processes. Currently, 55% of the global human population lives in urban areas. The diversity and community structure of wildlife will change significantly in urban habitats compared with rural ones.
+  Ground beetles are useful bio-indicators because they are sufficiently varied both taxonomically and ecologically, abundant, and sensitive to the anthropogenic effect. Urbanization has a huge effect at various levels of the biological organization on ground beetles in urban habitats. 
+  This study was carried out in nine urban green areas in southern Osaka. We tested the following question: How does the ground beetle community respond according to the area and land use? We propose an alternative to improve ground beetle diversity in urban areas.
+
+### 3.Materials and Methods
+1.Study sites
+
+  We chose nine urban green areas in southern Osaka. Suzunomiya park (SU), Chayama park (CH), Niwasiro park (NI), and Kouzen park (KO) are surrounded by residential areas, apartment complexes, and roads. Izumigaokaryokuchi (IZ), Kurotoriyama park (KU), and Koumyouike park (KM) are partially connected to natural habitats. Takasago park (TA) and Umitonohureaihiroba (UM) are located in landfill areas. The nine urban green areas were classified into three groups based on size: small area (SU, CH, and TA: < 5 ha), medium area (IZ, NI, and KU: > 5 ha and <15 ha), and large area (UM, KO, and KM: >15 ha).
+
+2.Survey
+
+  The survey was carried out 18 times from April to December 2007 using pitfall traps in nine urban green areas in southern Osaka. A plastic cup (diameter 7 cm, depth 10 cm) was used to make a trap without using any bait, and five holes were made to avoid rainwater. Ten traps were set 5 m apart in a straight line in the grassland area and another 10 traps in the forest area for 7 days at each site. The ground beetle specimens were identified using taxonomic keys to the level of species under a stereoscopic microscope.
+  
+3.Body size and Habitat type
+
+  The body size of ground beetles was grouped into three size classes: small (< 10.0 mm), medium (11.0–20.0 mm), and large (> 21.0 mm) (Ueno et al. 1989). In terms of habitat type, the ground beetles were classified into two groups based on their location when collected (Lake Biwa Museum, 2021). Forest species were mainly recorded in forests such as broadleaf forests, pine forests, urban forests, and secondary forests, whereas open land species were mainly recorded on riverbanks, paddy fields, urban green areas, and urban parks.
+
+4.Land use analysis
+
+  The land use data were collected from a 1:5000 scale map published in 2001 by the Geospatial Information Authority of Japan. The patterns of the surrounding environment of survey routes in nine urban green areas were analyzed using GIS. The land use was classified into ten categories: paddy, field, park and green space, forest, urban area, road, open space, river and pond, sea, and others.
+
+**Analysis preparation**
+```{r, message = FALSE, error = FALSE,  warning = FALSE}
+# Read data for the analysis
+GB <- read.csv(file = 'C:\\Users\\17145\\Documents\\Edx\\Capstone\\Ground_Beetle_Data.csv',
+               header = TRUE)
+EN <- read.csv(file = 'C:\\Users\\17145\\Documents\\Edx\\Capstone\\Community_index.csv',
+               header = TRUE)
+
+
+# Install R packages needed for the analysis 
+if(!require(dplyr)) install.packages("dplyr", repos = "http://cran.us.r-project.org")
+if(!require(ggplot2)) install.packages("ggplot2", repos = "http://cran.us.r-project.org")
+if(!require(tidyverse)) install.packages("tidyverse", repos = "http://cran.us.r-project.org")
+if(!require(gridExtra)) install.packages("gridExtra", repos = "http://cran.us.r-project.org")
+if(!require(corrplot)) install.packages("corrplot", repos = "http://cran.us.r-project.org")
+if(!require(vegan)) install.packages("vegan", repos = "http://cran.us.r-project.org")
+if(!require(permute)) install.packages("permute", repos = "http://cran.us.r-project.org")
+if(!require(lattice)) install.packages("lattice", repos = "http://cran.us.r-project.org")
+if(!require(knitr)) install.packages("knitr", repos = "http://cran.us.r-project.org")
+if(!require(tinytex)) install.packages("tinytex", repos = "http://cran.us.r-project.org")
+```
+
+
+### 4.Results
+  A total of 2950 ground beetles representing 53 species were collected. Species richness was the highest at UM (30 species) near the mouth of Yamato River and the lowest at TA (4 species) in the landfill area in Takaishi city (Figure 1). Abundance was the highest at IZ and the lowest at TA. When body size was considered, 30 medium-sized species, 16 small-sized species, and 7 large-sized species were found (Figure 2). Species richness of small-sized species and medium-sized species was the highest at NI (8) and UM (19), respectively, but the lowest at TA (1 and 3, Figure 2). Species richness of large-sized species was the highest at KM (5). However, large-sized species were not found in SU, CH, TA, or NI. Abundance of small-sized species and medium-sized species was the highest at IZ and the lowest at TA. 
+
+  Species richness and abudance of body size and habitat type were not significantly different between different areas (Figure 3 and 4). The community index showed various responses according to different land use categories. Ground beetle species richness, species richness of small, medium, and large size, and open land species were negatively correlated with urban area and road, whereas they were positively correlated with open space (Figure 5). The density of large-sized species was positively correlated with area, paddy, field, and forest, whereas it was negatively correlated with urban area and road. Species richness of small-sized species was positively correlated with year and open space, whereas it was negatively correlated with park and green space, forest, urban area, and road. Similarity relationships among ground beetle communities were visualized using two-dimensional NMDS ordination (Figure 6). Ground beetle communities in different areas of varying sizes did not group separately. 
+
+
+**Species richness of ground beetles**
+```{r}
+# Show total species richness of ground beetles collected in nine urban green areas
+n_distinct(GB$ï..Species)
+
+# Show species richness of ground beetles according to body size
+Number_Body = GB %>%
+  group_by(Body.size)%>%
+  summarise((Number_abundace=n_distinct(ï..Species)))
+Number_Body
+
+# Show species richness of ground beetles according to habitat type
+Number_Habitat_Type = GB %>%
+  group_by(Habitat.type)%>%
+  summarise((Number_abundace=n_distinct(ï..Species)))
+Number_Habitat_Type
+```
+
+
+**Abundance of ground beetles**
+```{r}
+# Show total abundance of ground beetles
+sum(GB$Abundance)
+
+# Show abundance of ground beetles according to body size
+Abundace_Body = GB %>%
+  group_by(Body.size)%>%
+  summarise((Abundance_Body=sum(Abundance)))
+Abundace_Body
+
+# Abundance of ground beetles according to habitat type 
+Abundace_Habitat_Type = GB %>%
+  group_by(Habitat.type)%>%
+  summarise((Abundance_Habitat_Type=sum(Abundance)))
+Abundace_Habitat_Type
+```
+
+
+**Bar graphs of species richness and abundance of ground beetles**
+```{r}
+# Make graphs according to the data of ground beetles
+# Reoder nine study sites according to area
+GB$Acronym <- factor(GB$Acronym, levels =c ("SU","CH","TA","IZ","NI","KU","UM","KO","KM"))
+
+# Make graph for species richness of ground beetles in nine urban green area
+plot1<- ggplot(GB, aes(Acronym)) + geom_bar(fill = "cadetblue2") +
+  labs(y = "Species richness", x = "Study sites")
+
+# Make graph for abundance of ground beetles in nine urban green area
+plot2<- ggplot(data=GB, aes(x=Acronym, y=Abundance))+geom_bar(stat="identity", 
+                                                              fill = "71b7begreen")+
+  labs(y = "Aundance", x = "Study sites")
+
+# Make Figure 1 with Plot1 and Plot2
+grid.arrange(plot1, plot2, nrow=1, ncol=2)
+```
+**Figure 1. Species richness and abundance of ground beetles in nine urban green areas.**
+
+
+```{r}
+# Make graph for species richness and abundance of ground beetles according 
+# to body size and habitat type
+Plot3<- ggplot(GB, aes(Acronym, fill=Body.size))+geom_bar(stat = "count")+
+  theme(legend.position ="top")+
+  scale_fill_discrete(name = "Body size")+
+  labs(y = "Species richness", x = "Study sites")
+
+# Make graph for species richness of ground beetles according to habitat type
+Plot4<- ggplot(GB, aes(Acronym, fill=Habitat.type))+geom_bar(stat = "count")+
+  theme(legend.position ="top")+
+  scale_fill_discrete(name = "Habitat type")+
+  labs(y = "Species richness", x = "Study sites")
+
+# Make graph for abundance of ground beetles according to body size
+Plot5<- ggplot(GB, aes(x=Acronym, y=Abundance, fill=Body.size))+geom_bar(stat="identity")+
+  theme(legend.position ="none")+
+  labs(y = "Abundace", x = "Study sites")
+
+# Make graph for abundance of ground beetles according to habitat type
+Plot6<- ggplot(GB, aes(x=Acronym, y=Abundance, fill=Habitat.type))+geom_bar(stat="identity")+
+  theme(legend.position ="none")+      
+  labs(y = "Abundace", x = "Study sites")
+
+# Make Figure 2.
+grid.arrange(Plot3, Plot4, Plot5, Plot6, nrow=2, ncol=2)
+```
+
+**Figure 2. Species richness and abundance of ground beetles according to body size and habitat type in nine urban green areas.**
+
+```{r}
+# Make bar graphs for species richness of body size and habitat type according to area
+# Reoder according to area
+EN$Area <- factor(EN$Area, levels =c ("Small area","Medium area","Large area"))
+
+# Make bar graph for species richness of ground beetles according to area
+EN1 <- group_by(EN,Area) %>% summarise(mean=mean(Speciesrichness),sd=sd(Speciesrichness))
+Plot7 <- ggplot(EN1,aes(x=Area,y=mean))+
+  geom_bar(stat="identity",position="dodge", fill = "#99CC00") +
+  labs(y = "Species richness", x = "Study sites")+
+  geom_errorbar(aes(ymin=mean-sd,ymax=mean+sd),width=0.25,
+                size=1,position= position_dodge(0.9),alpha=0.3)
+
+# Make bar graph for species richness of small-sized species according to area
+EN2 <- group_by(EN,Area) %>% summarise(mean=mean(Small_species),sd=sd(Small_species))
+Plot8 <- ggplot(EN2,aes(x=Area,y=mean))+
+  geom_bar(stat="identity",position="dodge", fill = "#FFCC33") +
+  labs(y = "Small-sized", x = "Study sites")+
+  geom_errorbar(aes(ymin=mean-sd,ymax=mean+sd),width=0.25,
+                size=1,position= position_dodge(0.9),alpha=0.3)
+
+# Make bar graph for species richness of medium-sized species according to area
+EN3 <- group_by(EN,Area) %>% summarise(mean=mean(Medium_species),sd=sd(Medium_species))
+Plot9 <- ggplot(EN3,aes(x=Area,y=mean))+
+  geom_bar(stat="identity",position="dodge", fill = "#FF6633") +
+  labs(y = "Medium-sized", x = "Study sites")+
+  geom_errorbar(aes(ymin=mean-sd,ymax=mean+sd),width=0.25,
+                size=1,position= position_dodge(0.9),alpha=0.3)
+
+# Make bar graph for species richness of large-sized species according to area
+EN4 <- group_by(EN,Area) %>% summarise(mean=mean(Large_species),sd=sd(Large_species))
+Plot10 <- ggplot(EN4,aes(x=Area,y=mean))+
+  geom_bar(stat="identity",position="dodge", fill = "#CC0033") +
+  labs(y = "Large-sized", x = "Study sites")+
+  geom_errorbar(aes(ymin=mean-sd,ymax=mean+sd),width=0.25,
+                size=1,position= position_dodge(0.9),alpha=0.3)
+
+# Make bar graph for species richness of forest species according to area
+EN5 <- group_by(EN,Area) %>% summarise(mean=mean(Forest_species),sd=sd(Forest_species))
+Plot11 <- ggplot(EN5,aes(x=Area,y=mean))+
+  geom_bar(stat="identity",position="dodge", fill = "#3399FF") +
+  labs(y = "Forest species", x = "Study sites")+
+  geom_errorbar(aes(ymin=mean-sd,ymax=mean+sd),width=0.25,
+                size=1,position= position_dodge(0.9),alpha=0.3)
+
+# Make bar graph for species richness of open land species according to area
+EN6 <- group_by(EN,Area) %>% summarise(mean=mean(Openland_species),sd=sd(Openland_species))
+Plot12 <- ggplot(EN6,aes(x=Area,y=mean))+
+  geom_bar(stat="identity",position="dodge", fill = "#CC00CC") +
+  labs(y = "Open land species", x = "Study sites")+
+  geom_errorbar(aes(ymin=mean-sd,ymax=mean+sd),width=0.25,
+                size=1,position= position_dodge(0.9),alpha=0.3)
+
+# Make Figure 3 with Plot7, Plot8, Plot9, Plot10, Plot11, and Plot12
+grid.arrange(Plot7, Plot8, Plot9, Plot10, Plot11, Plot12, nrow=4, ncol=2)
+```
+
+**Figure 3. Species richness of ground beetles, body size, and habitat type according to area. The error bars indicate one SD.**
+
+
+```{r}
+# Make bar graphs for density (Abundance per 20 traps)of ground beetles according to area
+EN7 <- group_by(EN,Area) %>% summarise(mean=mean(Density),sd=sd(Density))
+Plot13 <- ggplot(EN7,aes(x=Area,y=mean))+
+  geom_bar(stat="identity",position="dodge", fill = "#99CC00") +
+  labs(y = "Density", x = "Study sites")+
+  geom_errorbar(aes(ymin=mean-sd,ymax=mean+sd),width=0.25,
+                size=1,position= position_dodge(0.9),alpha=0.3)
+
+# Make bar graphs for density of small-sized species according to area
+EN8 <- group_by(EN,Area) %>% summarise(mean=mean(Small_density),sd=sd(Small_density))
+Plot14 <- ggplot(EN8,aes(x=Area,y=mean))+
+  geom_bar(stat="identity",position="dodge", fill = "#FFCC33") +
+  labs(y = "Small-sized", x = "Study sites")+
+  geom_errorbar(aes(ymin=mean-sd,ymax=mean+sd),width=0.25,
+                size=1,position= position_dodge(0.9),alpha=0.3)
+
+# Make bar graphs for density of medium-sized species according to area
+EN9 <- group_by(EN,Area) %>% summarise(mean=mean(Medium_density),sd=sd(Medium_density))
+Plot15 <- ggplot(EN9,aes(x=Area,y=mean))+
+  geom_bar(stat="identity",position="dodge", fill = "#FF6633") +
+  labs(y = "Medium-sized", x = "Study sites")+
+  geom_errorbar(aes(ymin=mean-sd,ymax=mean+sd),width=0.25,
+                size=1,position= position_dodge(0.9),alpha=0.3)
+
+# Make bar graphs for density of large-sized species according to area
+EN10 <- group_by(EN,Area) %>% summarise(mean=mean(Large_density),sd=sd(Large_density))
+Plot16 <- ggplot(EN10,aes(x=Area,y=mean))+
+  geom_bar(stat="identity",position="dodge", fill = "#CC0033") +
+  labs(y = "Large-sized", x = "Study sites")+
+  geom_errorbar(aes(ymin=mean-sd,ymax=mean+sd),width=0.25,
+                size=1,position= position_dodge(0.9),alpha=0.3)
+
+# Make bar graphs for density of forest species according to area
+EN11 <- group_by(EN,Area) %>% summarise(mean=mean(Forest_density),sd=sd(Forest_density))
+Plot17 <- ggplot(EN11,aes(x=Area,y=mean))+
+  geom_bar(stat="identity",position="dodge", fill = "#3399FF") +
+  labs(y = "Forest species", x = "Study sites")+
+  geom_errorbar(aes(ymin=mean-sd,ymax=mean+sd),width=0.25,
+                size=1,position= position_dodge(0.9),alpha=0.3)
+
+# Make bar graphs for density of open land species according to area
+EN12 <- group_by(EN,Area) %>% summarise(mean=mean(Openland_density),sd=sd(Openland_density))
+Plot18 <- ggplot(EN12,aes(x=Area,y=mean))+
+  geom_bar(stat="identity",position="dodge", fill = "#CC00CC") +
+  labs(y = "Open land species", x = "Study sites")+
+  geom_errorbar(aes(ymin=mean-sd,ymax=mean+sd),width=0.25,
+                size=1,position= position_dodge(0.9),alpha=0.3)
+
+# Make Figure 4 with Plot13, Plot14, Plot15, Plot16, Plot17, and Plot18
+grid.arrange(Plot13, Plot14, Plot15, Plot16, Plot17, Plot18, nrow=4, ncol=2)
+```
+
+**Figure 4. Density (Abundance per 20 traps) of ground beetles, body size, and habitat type according to area. The error bars indicate one SD.**
+
+**One-way Anova**
+```{r}
+# Do One-Way ANOVA test for community index according to area
+ANOVA1<- aov(EN$Speciesrichness~EN$Area)
+ANOVA2<- aov(EN$Small_species~EN$Area)
+ANOVA3<- aov(EN$Medium_species~EN$Area)
+ANOVA4<- aov(EN$Large_species~EN$Area)
+ANOVA5<- aov(EN$Forest_species~EN$Area)
+ANOVA6<- aov(EN$Openland_species~EN$Area)
+ANOVA7<- aov(EN$Density~EN$Area)
+ANOVA8<- aov(EN$Small_density~EN$Area)
+ANOVA9<- aov(EN$Medium_density~EN$Area)
+ANOVA10<- aov(EN$Large_density~EN$Area)
+ANOVA11<- aov(EN$Forest_density~EN$Area)
+ANOVA12<- aov(EN$Openland_density~EN$Area)
+
+# show the result of One-way ANOVA test for community index according to area
+summary(ANOVA1)
+summary(ANOVA2)
+summary(ANOVA3)
+summary(ANOVA4)
+summary(ANOVA5)
+summary(ANOVA6)
+summary(ANOVA7)
+summary(ANOVA8)
+summary(ANOVA9)
+summary(ANOVA10)
+summary(ANOVA11)
+summary(ANOVA12)
+```
+
+
+**Pearson correlation analysis**
+```{r}
+# Percentage of eight land use categories (paddy, field, park and grren space, forest, 
+# urban area, road, open space, river and pond) with the range of 500 m from the edge 
+# of nine urban green areas
+EN1 <- select(EN, -1:-2,-25:-59) 
+EN2<- cor(EN1)
+testRes = cor.mtest(EN2, conf.level = 0.95)
+corrplot(EN2, p.mat = testRes$p, method = 'color', diag = FALSE, type = 'upper',tl.col = 'black',
+        sig.level = c(0.001, 0.01, 0.05), pch.cex = 0.9, 
+        insig = 'label_sig', pch.col = 'grey20', order = 'AOE')
+```
+
+**Figure 5. Pearson’s correlation coefficient between ground beetles index and land use category of nine urban green areas.* p < 0.05, ** p < 0.01, *** p < 0.001.**
+
+
+
+**Non-metirc Multidimensional scaling**
+```{r}
+# Make data set for Non-metirc Multidimensional scaling
+groundbeetle <- select(EN, -1:-24)
+groundbeetle.envi <- select(EN, -1,-3:-14,-25:-59)
+groundbeetle.envi_2 <- groundbeetle.envi[,2:11]
+
+# Test Non-metirc Multidimensional scaling
+ord <- metaMDS(groundbeetle)
+plot(ord, type ="t")
+
+# Fit an environmental variables onto an ourdination
+gb <- envfit(ord,groundbeetle.envi_2)
+plot(gb)
+
+# Test permutational multivariate analysis of variance using distance matrices
+adonis(groundbeetle ~ Area, groundbeetle.envi)
+
+# Show groups in ordinaiton diagrams
+ordihull(ord,groups=groundbeetle.envi$Area,draw="polygon",label=T)
+
+```
+
+**Figure 6. Non₋metric multidimensional scaling (NMDS) ordination of ground beetle communities in nine urban green areas.**
+
+
+### 5.Discussion 
+Unexpectedly, species richness, density, body size, and habitat type did not differ between the different urban green areas. Furthermore, the community structure of ground beetles was similar in different areas. It seems that ground beetle communities formed by the effect of urbanization may become similar regardless of area. Ishitani et al. (2003) showed that in urban habitats, large-sized forest specialists may completely disappear, whereas small-sized forest specialists and medium-sized habitat generalists were in higher abundance. Fragmentation and isolation as well as lower habitat quality of remnant urban habitat patches may cause generalist species to increase (Magura and Lövei, 2020). Lee and Ishii (2009) studied riverbank, urban park, rice paddy, and coppice remnants in southern Osaka and showed that forest specialist, open-habitat specialist, large-sized, and endemic species have been reduced by urbanization. This result seems to be consistent with previous studies. 
+Our results suggest that there is no significant relationship between ground beetle communities and area. However, community indices were positively or negatively correlated with area. The changes in paddy, field, park and green space, forest, and open space associated with the increasing urban area and road greatly influenced species composition and the similar community structure remained. Remnant forests and connectivity were important factors to conserve ground beetle diversity in urban areas. 
+
+### 6.References
+1.	Ishitani, M.; Kotze, D.J.; Niemelä, J. Changes in carabid beetle assemblages across an urban–rural gradient in Japan. Ecography 2003, 26, 481–489.
+2.	Lake Biwa Museum. Ground Beetles of Satoyama, Shiga. 2021. Available online: https://www.biwahaku.jp/research/data/gomimushi/kamei_list.html 
+3.	Lee, C.M.; Ishii, M. Species diversity of ground beetle assemblages at urban greeneries in southern Osaka, central Japan. Jpn. J. Environ. Entomol. Zool. 2009, 20, 47–58.
+4.	Magura, T.; Lövei, G.L. Consequences of urban living: Urbanization and ground beetles. Curr. Landsc. Ecol. Rep. 2020, 6, 9–21.
+5.	Ueno, S.-I.; Kurosawa, Y.; Sato, M. The Coleoptera of Japan in Color; Hoikusha Publishing Co., Ltd.: Osaka, Japan, 1989; Volume II.
+
+
